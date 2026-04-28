@@ -3,121 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Ball - Find Your Game</title>
+    <title>Local Ball - Event Calendar</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Header -->
     <header class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <h1>Local Ball</h1>
-                <span class="tagline">Find Your Game</span>
+                <h1>Local Ball - Event Calendar</h1>
             </div>
-            <nav class="nav-menu">
-                <a href="#games" class="nav-link">Find Games</a>
-                <a href="#profiles" class="nav-link">Players</a>
-                <a href="#events" class="nav-link">Events</a>
-                <a href="#businesses" class="nav-link">Businesses</a>
-                <button class="btn-primary">Sign Up</button>
-            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Connect. Play. Compete.</h1>
-            <p class="hero-subtitle">Find pickup games, join leagues, and connect with the softball community in your area</p>
-            <div class="hero-buttons">
-                <button class="btn-primary large">Find Games Near Me</button>
-                <button class="btn-secondary large">Create Player Profile</button>
-            </div>
-        </div>
-        <div class="hero-stats">
-            <div class="stat-box">
-                <h3>247</h3>
-                <p>Active Players</p>
-            </div>
-            <div class="stat-box">
-                <h3>18</h3>
-                <p>Games This Week</p>
-            </div>
-            <div class="stat-box">
-                <h3>12</h3>
-                <p>Local Businesses</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
+    <section class="event-board">
         <div class="container">
-            <h2 class="section-title">Everything You Need to Stay in the Game</h2>
+            <h2>Softball Events Calendar</h2>
             
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Local Game Finder</h3>
-                    <p>Discover pickup games, open practices, and tournaments within 25 miles. Never miss an opportunity to play.</p>
-                    <button class="btn-outline">Explore Map</button>
-                </div>
+            <div class="event-controls">
+                <button class="btn-primary" id="addEventBtn">Add New Event</button>
+                <button class="btn-secondary" id="todayBtn">Go to Today</button>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>Player Profiles</h3>
-                    <p>Create your profile with position, skill level, and availability. Connect with players and coaches in your area.</p>
-                    <button class="btn-outline">Build Profile</button>
+            <!-- Calendar Section -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonthBtn">&lt;</button>
+                    <h3 id="monthYear">December 2024</h3>
+                    <button id="nextMonthBtn">&gt;</button>
                 </div>
+                
+                <div class="calendar-grid">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                    
+                    <!-- Calendar days will be added by JavaScript -->
+                    <div id="calendarDays" class="calendar-days"></div>
+                </div>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">📋</div>
-                    <h3>Event Board</h3>
-                    <p>Post and find league tryouts, tournaments, coaching opportunities, and equipment trades in your community.</p>
-                    <button class="btn-outline">View Events</button>
+            <!-- Event Form (hidden by default) -->
+            <div id="eventForm" class="event-form" style="display: none;">
+                <h3>Add New Event</h3>
+                <input type="text" id="eventTitle" placeholder="Event Title (e.g., Tournament, Practice)">
+                <input type="date" id="eventDate">
+                <input type="time" id="eventTime">
+                <input type="text" id="eventLocation" placeholder="Location">
+                <select id="eventType">
+                    <option value="tournament">Tournament</option>
+                    <option value="practice">Practice</option>
+                    <option value="tryout">Tryout</option>
+                    <option value="game">Game</option>
+                </select>
+                <div class="form-buttons">
+                    <button class="btn-primary" id="saveEventBtn">Save Event</button>
+                    <button class="btn-secondary" id="cancelEventBtn">Cancel</button>
                 </div>
+            </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">🏪</div>
-                    <h3>Business Directory</h3>
-                    <p>Find local batting cages, equipment stores, and training facilities. Support businesses that support your game.</p>
-                    <button class="btn-outline">Find Businesses</button>
-                </div>
+            <!-- Events List for Selected Day -->
+            <div id="selectedDayEvents" class="selected-day-events">
+                <h3 id="selectedDayTitle">Select a day to view events</h3>
+                <div id="dayEventsList"></div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Level Up Your Game?</h2>
-            <p>Join hundreds of players already using Local Ball to find games and build their softball network</p>
-            <button class="btn-primary large">Get Started Today</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Local Ball</h4>
-                    <p>Connecting the softball community, one game at a time.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#about">About Us</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#privacy">Privacy Policy</a>
-                </div>
-                <div class="footer-section">
-                    <h4>For Businesses</h4>
-                    <a href="#partner">Partner With Us</a>
-                    <a href="#advertise">Advertise</a>
-                    <a href="#support">Business Support</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
