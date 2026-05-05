@@ -100,17 +100,46 @@ function showEventsForSelectedDay(dateString) {
             let eventElement = document.createElement('div');
             eventElement.className = 'day-event';
             
+            // Find the original index of this event in the main events array
+            let originalIndex = -1;
+            for (let j = 0; j < events.length; j++) {
+                if (events[j] === event) {
+                    originalIndex = j;
+                    break;
+                }
+            }
+            
             eventElement.innerHTML = 
                 '<div class="event-title">' + event.title + '</div>' +
                 '<div class="event-details">' +
                     '<strong>Time:</strong> ' + event.time + '<br>' +
                     '<strong>Location:</strong> ' + event.location + '<br>' +
                     '<strong>Type:</strong> ' + event.type +
-                '</div>';
+                '</div>' +
+                '<button class="delete-btn" onclick="deleteEvent(' + originalIndex + ')">Delete</button>';
             
             dayEventsList.appendChild(eventElement);
         }
     }
+}
+
+// Function to delete an event
+function deleteEvent(eventIndex) {
+    // Remove the event from the array
+    events.splice(eventIndex, 1);
+    
+    // Save updated events to localStorage
+    localStorage.setItem('softballEvents', JSON.stringify(events));
+    
+    // Refresh the calendar display
+    displayCalendar();
+    
+    // Refresh the events list for the selected day
+    if (selectedDate) {
+        showEventsForSelectedDay(selectedDate);
+    }
+    
+    alert('Event deleted successfully!');
 }
 
 // Function to get events for a specific date
